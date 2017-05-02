@@ -4,7 +4,7 @@
 #
 Name     : xcursor-themes
 Version  : 1.0.4
-Release  : 6
+Release  : 7
 URL      : http://xorg.freedesktop.org/releases/individual/data/xcursor-themes-1.0.4.tar.gz
 Source0  : http://xorg.freedesktop.org/releases/individual/data/xcursor-themes-1.0.4.tar.gz
 Summary  : No detailed summary available
