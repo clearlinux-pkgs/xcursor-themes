@@ -5,11 +5,11 @@
 # Source0 file verified with key 0xCFDF148828C642A7 (alanc@freedesktop.org)
 #
 Name     : xcursor-themes
-Version  : 1.0.6
-Release  : 13
-URL      : http://xorg.freedesktop.org/releases/individual/data/xcursor-themes-1.0.6.tar.gz
-Source0  : http://xorg.freedesktop.org/releases/individual/data/xcursor-themes-1.0.6.tar.gz
-Source1  : http://xorg.freedesktop.org/releases/individual/data/xcursor-themes-1.0.6.tar.gz.sig
+Version  : 1.0.7
+Release  : 14
+URL      : https://www.x.org/releases/individual/data/xcursor-themes-1.0.7.tar.gz
+Source0  : https://www.x.org/releases/individual/data/xcursor-themes-1.0.7.tar.gz
+Source1  : https://www.x.org/releases/individual/data/xcursor-themes-1.0.7.tar.gz.sig
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : MIT
@@ -18,6 +18,9 @@ Requires: xcursor-themes-license = %{version}-%{release}
 BuildRequires : pkgconfig(xcursor)
 BuildRequires : pkgconfig(xorg-macros)
 BuildRequires : xcursorgen
+# Suppress stripping binaries
+%define __strip /bin/true
+%define debug_package %{nil}
 
 %description
 This is a default set of cursor themes for use with libXcursor,
@@ -41,23 +44,23 @@ license components for the xcursor-themes package.
 
 
 %prep
-%setup -q -n xcursor-themes-1.0.6
-cd %{_builddir}/xcursor-themes-1.0.6
+%setup -q -n xcursor-themes-1.0.7
+cd %{_builddir}/xcursor-themes-1.0.7
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1604352615
+export SOURCE_DATE_EPOCH=1677371653
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
-export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
-export FCFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 "
-export FFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 "
-export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 "
+export CFLAGS="$CFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
+export FCFLAGS="$FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
+export FFLAGS="$FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
+export CXXFLAGS="$CXXFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
 %configure --disable-static
 make  %{?_smp_mflags}
 
@@ -69,10 +72,10 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1604352615
+export SOURCE_DATE_EPOCH=1677371653
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/xcursor-themes
-cp %{_builddir}/xcursor-themes-1.0.6/COPYING %{buildroot}/usr/share/package-licenses/xcursor-themes/50147984b983a89bb0a981968bad2e431f0a1423
+cp %{_builddir}/xcursor-themes-%{version}/COPYING %{buildroot}/usr/share/package-licenses/xcursor-themes/50147984b983a89bb0a981968bad2e431f0a1423 || :
 %make_install
 
 %files
